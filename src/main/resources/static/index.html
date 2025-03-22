@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>챗봇 테스트</title>
+</head>
+<body>
+<h1>🤖 챗봇 테스트 페이지</h1>
+
+<div>
+    <label for="message">메시지를 입력하세요:</label><br>
+    <input type="text" id="message" placeholder="예: 안녕 챗봇!" style="width: 300px;">
+    <button onclick="sendMessage()">보내기</button>
+</div>
+
+<div style="margin-top: 20px;">
+    <strong>AI 응답:</strong>
+    <p id="response"></p>
+</div>
+
+<script>
+    async function sendMessage() {
+        const message = document.getElementById('message').value;
+
+        if (!message.trim()) {
+            alert('메시지를 입력해주세요!');
+            return;
+        }
+
+        const response = await fetch('/api/chat', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(message)
+        });
+
+        const result = await response.json();
+        document.getElementById('response').innerText = result["openaiResponse"] || '응답이 없습니다.';
+    }
+</script>
+</body>
+</html>
