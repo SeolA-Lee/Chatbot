@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/header :: header" />
+<body>
+
+<div class="container">
+    <div th:replace="fragments/bodyHeader :: bodyHeader"/>
+    <h3>채팅방 #[[${chat.id}]]</h3>
+
+    <div class="chat-box">
+        <div th:each="message : ${messages}" class="message">
+        <span th:text="${message.role == 'user' ? '🙋‍♀️ ' : '🤖 '}"
+              th:classappend="${message.role == 'user' ? ' user' : ' assistant'}"></span>
+            <span th:text="${message.content}" class="content"></span>
+        </div>
+    </div>
+    <br />
+
+    <form id="messageForm" th:action="@{/chat/{chatId}(chatId=${chat.id})}" method="post">
+        <textarea id="content" name="content" class="form-control" placeholder="메시지를 입력하세요..."></textarea><br>
+        <button class="btn btn-success" type="submit">전송</button>
+    </form>
+
+</div> <!-- /container -->
+
+</body>
+</html>
