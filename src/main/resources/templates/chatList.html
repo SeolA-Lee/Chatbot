@@ -12,13 +12,15 @@
             <tr>
                 <th>채팅방 ID</th>
                 <th>유저</th>
+                <th>챗봇</th>
                 <th></th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="chat : ${chats}">
-                <td th:text="${chat.id}"></td>
+                <td th:text="${chat.id}">test</td>
                 <td th:text="${chat.user}">테스터</td>
+                <td th:text="${chat.type}">챗봇</td>
                 <td>
                     <a href="#" th:href="@{/chat/{id} (id=${chat.id})}" class="btn btn-secondary" role="button">입장</a>
                 </td>
@@ -26,8 +28,12 @@
             </tbody>
         </table>
 
-        <form action="/chat/new" method="POST">
-            <button type="submit" class="btn btn-success me-md-2">➕ 새 채팅방</button>
+        <form action="/chat/new/1" method="POST">
+            <button type="submit" class="btn btn-success me-md-2">➕ 새 채팅방(1)</button>
+        </form>
+
+        <form action="/chat/new/2" method="POST">
+            <button type="submit" class="btn btn-success me-md-2">➕ 새 채팅방(2)</button>
         </form>
     </div>
 

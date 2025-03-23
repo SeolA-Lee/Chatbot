@@ -1,12 +1,15 @@
 package com.example.chatbot.controller;
 
 import com.example.chatbot.domain.Chat;
+import com.example.chatbot.domain.ChatbotType;
 import com.example.chatbot.service.ChatService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+@Slf4j
 @Controller
 @RequiredArgsConstructor
 public class ChatController {
@@ -20,9 +23,17 @@ public class ChatController {
         return "chatList";
     }
 
-    @PostMapping("/chat/new")
-    public String createChat() {
-        Chat chat = chatService.createChat();
+    @PostMapping("/chat/new/1")
+    public String createChat1() {
+        Chat chat = chatService.createChat(ChatbotType.BOT1);
+        log.info("Chat Type = " + chat.getType());
+        return "redirect:/chat/" + chat.getId();
+    }
+
+    @PostMapping("/chat/new/2")
+    public String createChat2() {
+        Chat chat = chatService.createChat(ChatbotType.BOT2);
+        log.info("Chat Type = " + chat.getType());
         return "redirect:/chat/" + chat.getId();
     }
 

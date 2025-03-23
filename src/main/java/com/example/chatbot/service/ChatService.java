@@ -1,6 +1,7 @@
 package com.example.chatbot.service;
 
 import com.example.chatbot.domain.Chat;
+import com.example.chatbot.domain.ChatbotType;
 import com.example.chatbot.repository.ChatRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,8 +12,9 @@ public class ChatService {
 
     private final ChatRepository chatRepository;
 
-    public Chat createChat() {
+    public Chat createChat(ChatbotType type) {
         Chat chat = new Chat();
+        chat.setType(type);
         chatRepository.save(chat);
         return chat;
     }

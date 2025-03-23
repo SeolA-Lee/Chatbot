@@ -4,6 +4,7 @@ import com.example.chatbot.domain.Chat;
 import com.example.chatbot.domain.Message;
 import com.example.chatbot.dto.ChatDto;
 import com.example.chatbot.dto.MessageDto;
+import com.example.chatbot.prompt.SystemPromptFactory;
 import com.example.chatbot.repository.MessageRepository;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -32,6 +33,7 @@ public class MessageService {
 
     public Message sendMessage(Long chatId, String content) {
         Chat chat = chatService.findChatById(chatId);
+        log.info("sendMessage(chat.getType) = " + chat.getType());
 
         Message message = new Message();
         message.setChat(chat);
@@ -41,6 +43,10 @@ public class MessageService {
 
         List<Message> messages = chat.getMessages();
         List<MessageDto> messageDtos = new ArrayList<>();
+
+        MessageDto systemPrompt = SystemPromptFactory.createSystemPrompt(chat.getType());
+        messageDtos.add(systemPrompt);
+
         for (Message m : messages) {
             MessageDto messageDto = new MessageDto();
             messageDto.setRole(m.getRole());

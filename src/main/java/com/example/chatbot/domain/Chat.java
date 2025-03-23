@@ -23,4 +23,7 @@ public class Chat {
     @OneToMany(mappedBy = "chat")
     @JsonManagedReference
     private List<Message> messages;
+
+    @Enumerated(EnumType.STRING)
+    private ChatbotType type;
 }
